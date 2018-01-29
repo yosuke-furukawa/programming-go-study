@@ -20,6 +20,6 @@ func Echo2(args []string) string {
 }
 
 func main() {
-  fmt.Println(Echo1(os.Args[1:]))
-  fmt.Println(Echo2(os.Args[1:]))
+	fmt.Println(Echo1(os.Args[1:]))
+	fmt.Println(Echo2(os.Args[1:]))
 }
