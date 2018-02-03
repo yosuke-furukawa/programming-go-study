@@ -26,15 +26,14 @@ func fetchAll(urls []string, w io.Writer) {
 }
 
 func fetch(url string, ch chan<- string) {
-	start := time.Now()
 	if !strings.HasPrefix(url, "http://") {
 		url = "http://" + url
 	}
 
-	timeout := time.After(10 * time.Second)
 	re := make(chan string)
 
 	go func() {
+	  start := time.Now()
 		resp, err := http.Get(url)
 		if err != nil {
 			re <- fmt.Sprint(err)
@@ -55,7 +54,7 @@ func fetch(url string, ch chan<- string) {
 		select {
 		case msg := <-re:
 			ch <- msg
-		case <-timeout:
+		case <-time.After(10 * time.Second):
 			ch <- "timeout"
 		}
 	}
