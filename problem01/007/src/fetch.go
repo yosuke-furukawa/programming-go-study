@@ -5,18 +5,15 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"strings"
 )
 
 func fetch(url string, dst io.Writer) error {
-	if !strings.HasPrefix(url, "http://") {
-		url = "http://" + url
-	}
 	resp, err := http.Get(url)
 	if err != nil {
 		return err
 	}
 	_, err = io.Copy(dst, resp.Body)
+  resp.Body.Close()
 	return err
 }
 

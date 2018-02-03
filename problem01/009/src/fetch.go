@@ -18,6 +18,7 @@ func fetch(url string, dst io.Writer) error {
 	}
 	dst.Write([]byte("Status: " + resp.Status + "\n"))
 	_, err = io.Copy(dst, resp.Body)
+  resp.Body.Close()
 	return err
 }
 
