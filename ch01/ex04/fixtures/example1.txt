@@ -1,0 +1,8 @@
+apple
+banana
+cat
+dictionary
+apple
+end
+end
+banana
