@@ -45,8 +45,8 @@ func main() {
 
 func lissajousHandler(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
-    w.WriteHeader(500)
-    w.Write([]byte("Error: do not parse form"))
+    w.WriteHeader(400)
+    fmt.Fprintf(w, "Error: do not parse form")
 	}
 
 	var cycles float64
@@ -57,8 +57,10 @@ func lissajousHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		cycles, err = strconv.ParseFloat(c[0], 64)
 		if err != nil {
-      w.WriteHeader(500)
-      w.Write([]byte(fmt.Sprintf("Error: do not parse cycles %v", err)))
+      w.WriteHeader(400)
+      fmt.Fprintf(w, "Error: do not parse cycles")
+      log.Print(err)
+      return
 		}
 	}
 
