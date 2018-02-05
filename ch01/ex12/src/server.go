@@ -1,6 +1,7 @@
 package main
 
 import (
+  "fmt"
 	"log"
 	"math/rand"
   "net"
@@ -10,7 +11,7 @@ import (
 )
 
 func server(host string, ch chan<- net.Listener, er chan<- error) {
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/",lissajousHandler)
 	rand.Seed(time.Now().UTC().UnixNano())
 
   listener, err := net.Listen("tcp", host)
@@ -42,9 +43,10 @@ func main() {
 	}
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func lissajousHandler(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
-		log.Print(err)
+    w.WriteHeader(500)
+    w.Write([]byte("Error: do not parse form"))
 	}
 
 	var cycles float64
@@ -55,7 +57,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		cycles, err = strconv.ParseFloat(c[0], 64)
 		if err != nil {
-			log.Print(err)
+      w.WriteHeader(500)
+      w.Write([]byte(fmt.Sprintf("Error: do not parse cycles %v", err)))
 		}
 	}
 
