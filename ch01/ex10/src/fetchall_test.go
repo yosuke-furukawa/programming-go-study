@@ -2,8 +2,8 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"testing"
-  "fmt"
 )
 
 func TestFetchAll(t *testing.T) {
@@ -11,7 +11,6 @@ func TestFetchAll(t *testing.T) {
 	buffer2 := &bytes.Buffer{}
 	fetchAll([]string{"http://gopl.io", "http://www.4chan.org/"}, buffer1)
 	fetchAll([]string{"http://gopl.io", "http://www.4chan.org/"}, buffer2)
-  fmt.Println(buffer1)
-  fmt.Println(buffer2)
+	fmt.Println(buffer1)
+	fmt.Println(buffer2)
 }
-

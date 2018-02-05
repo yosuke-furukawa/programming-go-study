@@ -33,7 +33,7 @@ func fetch(url string, ch chan<- string) {
 	re := make(chan string)
 
 	go func() {
-	  start := time.Now()
+		start := time.Now()
 		resp, err := http.Get(url)
 		if err != nil {
 			re <- fmt.Sprint(err)

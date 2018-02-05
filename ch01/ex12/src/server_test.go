@@ -9,7 +9,7 @@ import (
 )
 
 func TestServerAndFetch(t *testing.T) {
-  t.Parallel()
+	t.Parallel()
 	ts := httptest.NewServer(http.HandlerFunc(lissajousHandler))
 	defer ts.Close()
 	resp, err := fetch(ts.URL, ioutil.Discard)
@@ -27,7 +27,7 @@ func TestServerAndFetch(t *testing.T) {
 }
 
 func TestServerAndFetchWithCycle10(t *testing.T) {
-  t.Parallel()
+	t.Parallel()
 	ts := httptest.NewServer(http.HandlerFunc(lissajousHandler))
 	defer ts.Close()
 	resp, err := fetch(ts.URL+"?cycles=10", ioutil.Discard)
@@ -45,7 +45,7 @@ func TestServerAndFetchWithCycle10(t *testing.T) {
 }
 
 func TestErrorLissajous(t *testing.T) {
-  t.Parallel()
+	t.Parallel()
 	ts := httptest.NewServer(http.HandlerFunc(lissajousHandler))
 	defer ts.Close()
 	buffer := &bytes.Buffer{}

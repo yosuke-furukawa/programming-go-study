@@ -17,7 +17,7 @@ func TestDup(t *testing.T) {
 		}
 		for line, n := range count {
 			if n < 1 {
-				t.Errorf("unexpected linecount %f", n)
+				t.Errorf("unexpected linecount %d", n)
 			}
 			data, _ := ioutil.ReadFile(filename)
 			if !strings.Contains(string(data), line) {
