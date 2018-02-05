@@ -1,32 +1,32 @@
 package main
 
 import (
-  "fmt"
+	"fmt"
 	"log"
 	"math/rand"
-  "net"
+	"net"
 	"net/http"
 	"strconv"
 	"time"
 )
 
 func server(host string, ch chan<- net.Listener, er chan<- error) {
-	http.HandleFunc("/",lissajousHandler)
+	http.HandleFunc("/", lissajousHandler)
 	rand.Seed(time.Now().UTC().UnixNano())
 
-  listener, err := net.Listen("tcp", host)
+	listener, err := net.Listen("tcp", host)
 
-  if err != nil {
-    er <- err
-    return
-  }
-  ch <- listener
+	if err != nil {
+		er <- err
+		return
+	}
+	ch <- listener
 
-  err = http.Serve(listener, nil)
-  if err != nil {
-    er <- err
-    return
-  }
+	err = http.Serve(listener, nil)
+	if err != nil {
+		er <- err
+		return
+	}
 }
 
 func main() {
@@ -36,17 +36,17 @@ func main() {
 	for {
 		select {
 		case listener := <-ch:
-      log.Println("listen on ", listener.Addr().String())
-    case err := <-er:
-      log.Fatal("error ", err)
+			log.Println("listen on ", listener.Addr().String())
+		case err := <-er:
+			log.Fatal("error ", err)
 		}
 	}
 }
 
 func lissajousHandler(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
-    w.WriteHeader(400)
-    fmt.Fprintf(w, "Error: do not parse form")
+		w.WriteHeader(400)
+		fmt.Fprintf(w, "Error: do not parse form")
 	}
 
 	var cycles float64
@@ -57,10 +57,10 @@ func lissajousHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		cycles, err = strconv.ParseFloat(c[0], 64)
 		if err != nil {
-      w.WriteHeader(400)
-      fmt.Fprintf(w, "Error: do not parse cycles")
-      log.Print(err)
-      return
+			w.WriteHeader(400)
+			fmt.Fprintf(w, "Error: do not parse cycles")
+			log.Print(err)
+			return
 		}
 	}
 
