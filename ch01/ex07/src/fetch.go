@@ -13,7 +13,8 @@ func fetch(url string, dst io.Writer) error {
 		return err
 	}
 	_, err = io.Copy(dst, resp.Body)
-  resp.Body.Close()
+
+	resp.Body.Close()
 	return err
 }
 
