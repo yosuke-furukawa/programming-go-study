@@ -5,14 +5,14 @@ import (
 	"os"
 	"strconv"
 
+	"bufio"
+	"github.com/yosuke-furukawa/programming-go-study/ch02/ex02/src/distconv"
 	"github.com/yosuke-furukawa/programming-go-study/ch02/ex02/src/tempconv"
 	"github.com/yosuke-furukawa/programming-go-study/ch02/ex02/src/weightconv"
-	"github.com/yosuke-furukawa/programming-go-study/ch02/ex02/src/distconv"
-	"bufio"
 )
 
 func transform(value float64, converter string) string {
-	switch(converter) {
+	switch converter {
 	case "w":
 		fallthrough
 	case "weight":
@@ -67,5 +67,3 @@ func main() {
 		fmt.Println(transform(value, c))
 	}
 }
-
-

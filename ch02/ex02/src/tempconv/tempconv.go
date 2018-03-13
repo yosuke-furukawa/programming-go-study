@@ -4,27 +4,29 @@ import "fmt"
 
 // Celsius is a type of degree
 type Celsius float64
+
 // Fahrenheit is a type of degree
 type Fahrenheit float64
+
 // Kelvin is a type of degree
 type Kelvin float64
 
 // Constants
 const (
 	AbsoluteZeroC Celsius = -273.15
-	FreezingC Celsius = 0
-	BoilingC Celsius = 100
-	ZeroK Kelvin = 0
+	FreezingC     Celsius = 0
+	BoilingC      Celsius = 100
+	ZeroK         Kelvin  = 0
 )
 
 // CToF Celsius to Fahrenheit
 func CToF(c Celsius) Fahrenheit {
-	return Fahrenheit(c * 9/5 + 32)
+	return Fahrenheit(c*9/5 + 32)
 }
 
 // FToC Fahrenheit to Celsius
 func FToC(f Fahrenheit) Celsius {
-	return Celsius((f - 32) * 5/9)
+	return Celsius((f - 32) * 5 / 9)
 }
 
 // CToK Celsius to Kelvin
@@ -39,12 +41,12 @@ func KToC(k Kelvin) Celsius {
 
 // FToK Fahrenheit to Kelvin
 func FToK(f Fahrenheit) Kelvin {
-	return Kelvin((f + 459.67) * 5/9)
+	return Kelvin((f + 459.67) * 5 / 9)
 }
 
 // KToF Kelvin to Fahrenheit
 func KToF(k Kelvin) Fahrenheit {
-	return Fahrenheit(k * 9/5 - 459.67)
+	return Fahrenheit(k*9/5 - 459.67)
 }
 
 func (c Celsius) String() string {

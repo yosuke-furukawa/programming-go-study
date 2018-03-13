@@ -4,6 +4,7 @@ import "fmt"
 
 // Pound is a type of weight
 type Pound float64
+
 // KiloGram is a type of weight
 type KiloGram float64
 

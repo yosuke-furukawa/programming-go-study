@@ -4,6 +4,7 @@ import "fmt"
 
 // Meter is a type of distance
 type Meter float64
+
 // Feet is a type of distance
 type Feet float64
 
