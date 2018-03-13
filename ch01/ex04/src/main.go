@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// Dup usage: args []string
 func Dup(args []string) (map[string]map[string]int, error) {
 	counts := make(map[string]map[string]int)
 	for _, filename := range args {
