@@ -1,5 +1,7 @@
 package popcount
 
+import "math/bits"
+
 var pc [256]byte
 
 func init() {
@@ -48,6 +50,22 @@ func PopCountAndOne(x uint64) int {
 		result++
 	}
 	return result
+}
+
+// PopCountHackersDelight version
+func PopCountHackersDelight(x uint64) int {
+	x = x - ((x >> 1) & 0x5555555555555555)
+	x = (x & 0x3333333333333333) + ((x >> 2) & 0x3333333333333333)
+	x = (x + (x >> 4)) & 0x0f0f0f0f0f0f0f0f
+	x = x + (x >> 8)
+	x = x + (x >> 16)
+	x = x + (x >> 32)
+	return int(x & 0x7f)
+}
+
+// PopCountOnesCount using bits.OnesCount
+func PopCountOnesCount(x uint64) int {
+	return int(bits.OnesCount(uint(x)))
 }
 
 // PopCountCPU bit count using POPCNTL

@@ -48,6 +48,17 @@ func TestPopCountAndOne(t *testing.T) {
 	}
 }
 
+func TestPopCountHackersDelight(t *testing.T) {
+	count := PopCountHackersDelight(3)
+	if count != 2 {
+		t.Errorf("popcount number is differnt %d", count)
+	}
+	count = PopCountHackersDelight(16)
+	if count != 1 {
+		t.Errorf("popcount number is differnt %d", count)
+	}
+}
+
 func TestPopCountCPU(t *testing.T) {
 	count := PopCountCPU(3)
 	if count != 2 {
@@ -89,9 +100,33 @@ func BenchmarkPopCountAndOne(b *testing.B) {
 	}
 }
 
+func BenchmarkPopCountHackersDelight(b *testing.B) {
+	results = []int{}
+	for i := 0; i < b.N; i++ {
+		results = append(results, PopCountHackersDelight(uint64(i)))
+	}
+}
+
+func BenchmarkPopCountOnesCount(b *testing.B) {
+	results = []int{}
+	for i := 0; i < b.N; i++ {
+		results = append(results, PopCountOnesCount(uint64(i)))
+	}
+}
+
 func BenchmarkPopCountCPU(b *testing.B) {
 	results = []int{}
 	for i := 0; i < b.N; i++ {
 		results = append(results, PopCountCPU(uint64(i)))
 	}
 }
+
+/*
+BenchmarkPopCount-4                     50000000                25.4 ns/op
+BenchmarkPopCountLoop-4                 50000000                26.7 ns/op
+BenchmarkPopCountShift64-4              10000000               141 ns/op
+BenchmarkPopCountAndOne-4               100000000               33.5 ns/op
+BenchmarkPopCountHackersDelight-4       200000000               41.2 ns/op
+BenchmarkPopCountOnesCount-4            100000000               12.6 ns/op
+BenchmarkPopCountCPU-4                  200000000               24.5 ns/op
+*/
