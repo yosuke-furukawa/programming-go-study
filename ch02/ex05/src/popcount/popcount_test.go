@@ -70,63 +70,64 @@ func TestPopCountCPU(t *testing.T) {
 	}
 }
 
+var input uint64 = 0x1234567890ABCDEF
 var results []int
 
 func BenchmarkPopCount(b *testing.B) {
 	results = []int{}
 	for i := 0; i < b.N; i++ {
-		results = append(results, PopCount(uint64(i)))
+		results = append(results, PopCount(input))
 	}
 }
 
 func BenchmarkPopCountLoop(b *testing.B) {
 	results = []int{}
 	for i := 0; i < b.N; i++ {
-		results = append(results, PopCountLoop(uint64(i)))
+		results = append(results, PopCountLoop(input))
 	}
 }
 
 func BenchmarkPopCountShift64(b *testing.B) {
 	results = []int{}
 	for i := 0; i < b.N; i++ {
-		results = append(results, PopCountShift64(uint64(i)))
+		results = append(results, PopCountShift64(input))
 	}
 }
 
 func BenchmarkPopCountAndOne(b *testing.B) {
 	results = []int{}
 	for i := 0; i < b.N; i++ {
-		results = append(results, PopCountAndOne(uint64(i)))
+		results = append(results, PopCountAndOne(input))
 	}
 }
 
 func BenchmarkPopCountHackersDelight(b *testing.B) {
 	results = []int{}
 	for i := 0; i < b.N; i++ {
-		results = append(results, PopCountHackersDelight(uint64(i)))
+		results = append(results, PopCountHackersDelight(input))
 	}
 }
 
 func BenchmarkPopCountOnesCount(b *testing.B) {
 	results = []int{}
 	for i := 0; i < b.N; i++ {
-		results = append(results, PopCountOnesCount(uint64(i)))
+		results = append(results, PopCountOnesCount(input))
 	}
 }
 
 func BenchmarkPopCountCPU(b *testing.B) {
 	results = []int{}
 	for i := 0; i < b.N; i++ {
-		results = append(results, PopCountCPU(uint64(i)))
+		results = append(results, PopCountCPU(input))
 	}
 }
 
 /*
-BenchmarkPopCount-4                     50000000                25.4 ns/op
-BenchmarkPopCountLoop-4                 50000000                26.7 ns/op
-BenchmarkPopCountShift64-4              10000000               141 ns/op
-BenchmarkPopCountAndOne-4               100000000               33.5 ns/op
-BenchmarkPopCountHackersDelight-4       200000000               41.2 ns/op
-BenchmarkPopCountOnesCount-4            100000000               12.6 ns/op
-BenchmarkPopCountCPU-4                  200000000               24.5 ns/op
+BenchmarkPopCount-4                     50000000                34.1 ns/op
+BenchmarkPopCountLoop-4                 50000000                23.1 ns/op
+BenchmarkPopCountShift64-4              10000000               121 ns/op
+BenchmarkPopCountAndOne-4               50000000                32.5 ns/op
+BenchmarkPopCountHackersDelight-4       100000000               38.9 ns/op
+BenchmarkPopCountOnesCount-4            100000000               10.4 ns/op
+BenchmarkPopCountCPU-4                  200000000               29.5 ns/op
 */
