@@ -12,6 +12,7 @@ func comma(s string) string {
 	var i int
 	for i = len(s); i/3 > 0; i -= 3 {
 		var buf bytes.Buffer
+		buf.WriteString(",")
 		buf.WriteString(s[i-3 : i])
 		result = string(append(buf.Bytes(), []byte(result)...))
 	}
