@@ -10,6 +10,12 @@ func TestAnagram(t *testing.T) {
 	if !result {
 		t.Errorf("%s and %s are not anagram", s1, s2)
 	}
+	s1 = "こんにちは"
+	s2 = "はんこちに"
+	result = anagram(s1, s2)
+	if !result {
+		t.Errorf("%s and %s are not anagram", s1, s2)
+	}
 }
 
 func TestFailAnagram(t *testing.T) {
@@ -19,5 +25,11 @@ func TestFailAnagram(t *testing.T) {
 	result := anagram(s1, s2)
 	if result {
 		t.Errorf("%s and %s are anagram", s1, s2)
+	}
+	s1 = "こんにちは"
+	s2 = "はんここち"
+	result = anagram(s1, s2)
+	if result {
+		t.Errorf("%s and %s are not anagram", s1, s2)
 	}
 }
