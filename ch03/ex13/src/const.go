@@ -22,4 +22,6 @@ func main() {
 	fmt.Println(TB)
 	fmt.Println(PB)
 	fmt.Println(EB)
+	fmt.Println(ZB)
+	fmt.Println(YB)
 }
