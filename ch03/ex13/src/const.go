@@ -3,15 +3,13 @@ package main
 import "fmt"
 
 const (
-	B  = 1
-	KB = 1024 * B
-	MB = 1024 * KB
-	GB = 1024 * MB
-	TB = 1024 * GB
-	PB = 1024 * TB
-	EB = 1024 * PB
-	ZB = 1024 * EB
-	YB = 1024 * ZB
+	B uint64  = 1
+	KB = 1000 * B
+	MB = 1000 * KB
+	GB = 1000 * MB
+	TB = 1000 * GB
+	PB = 1000 * TB
+	EB = 1000 * PB
 )
 
 func main() {
@@ -22,6 +20,4 @@ func main() {
 	fmt.Println(TB)
 	fmt.Println(PB)
 	fmt.Println(EB)
-	fmt.Println(ZB)
-	fmt.Println(YB)
 }
