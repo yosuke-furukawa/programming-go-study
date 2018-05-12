@@ -15,7 +15,7 @@ func comma(s string) string {
 	if dot < 0 {
 		dot = len(s)
 	}
-	afterDot := s[dot:len(s)]
+	afterDot := s[dot:]
 	beforeDot := s[0:dot]
 	sig := ""
 	if s[0] == '-' || s[0] == '+' {
