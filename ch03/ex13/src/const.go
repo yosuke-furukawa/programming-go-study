@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 const (
-	B uint64  = 1
+	B  = 1
 	KB = 1000 * B
 	MB = 1000 * KB
 	GB = 1000 * MB
