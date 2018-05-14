@@ -14,7 +14,7 @@ func TestCheckBit(t *testing.T) {
 
 func TestCheckShaBit(t *testing.T) {
 	t.Parallel()
-	diff := CheckShaBit("x", "X")
+	diff := CheckSha256Bit("x", "X")
 	if diff != 125 {
 		t.Errorf("diff is not 125 %d", diff)
 	}
