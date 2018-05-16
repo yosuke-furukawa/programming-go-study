@@ -20,3 +20,23 @@ func Reverse(bs []byte) {
 	// 全体を反転する
 	reverse(bs)
 }
+
+func ReverseDoubleArray(bs []byte) []byte {
+
+	var result []rune
+	var size int
+	var r rune
+	for i := 0; i < len(bs); i += size {
+		r, size = utf8.DecodeRune(bs[i:])
+		result = append([]rune{r}, result...)
+	}
+	return []byte(string(result))
+}
+
+func ReverseString(s string) string {
+	rs := []rune(s)
+	for i, j := 0, len(rs)-1; i < len(rs)/2; i, j = i+1, j-1 {
+		rs[i], rs[j] = rs[j], rs[i]
+	}
+	return string(rs)
+}
