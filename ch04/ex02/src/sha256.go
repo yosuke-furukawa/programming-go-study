@@ -17,6 +17,7 @@ func init() {
 }
 
 func main() {
+	flag.Parse()
 	stdin := bufio.NewScanner(os.Stdin)
 	var c string
 	if stdin.Scan() {
