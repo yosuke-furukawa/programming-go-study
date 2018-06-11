@@ -11,6 +11,7 @@ jobs:
     steps:
       - checkout
       - run: go get -v -t -d ./...
+      - run: go get golang.org/x/net/html
       - run: go get github.com/golang/lint/golint
       - run: (! gofmt -s -d . | grep '^')
       - run: golint ./...
