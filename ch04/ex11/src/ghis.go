@@ -47,12 +47,12 @@ func runEditor() string {
 	err := cmd.Run()
 
 	if err != nil {
-		fmt.Errorf("error %v", err)
+		log.Fatalf("error %v", err)
 		os.Exit(1)
 	}
 	b, err := ioutil.ReadFile(path)
 	if err != nil {
-		fmt.Errorf("error %v", err)
+		log.Fatalf("error %v", err)
 		os.Exit(1)
 	}
 	return string(b)
@@ -72,7 +72,7 @@ Options\n
 	token := os.Getenv("GITHUB_TOKEN")
 
 	if token == "" {
-		fmt.Errorf("no token!!!")
+		log.Fatal("no token!!!")
 		flag.Usage()
 		os.Exit(1)
 	}
@@ -87,7 +87,7 @@ Options\n
 	flag.Parse()
 
 	if *owner == "" || *repository == "" {
-		fmt.Errorf("no owner or repository!!!")
+		log.Fatal("no owner or repository!!!")
 		flag.Usage()
 		os.Exit(1)
 	}
