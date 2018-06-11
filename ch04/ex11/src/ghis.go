@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"math/rand"
 	"os"
 
 	"fmt"
@@ -12,16 +13,31 @@ import (
 
 	"flag"
 
-	"github.com/orisano/go/pkg/dep/sources/https---github.com-labstack-gommon/random"
+	"time"
+
 	"github.com/yosuke-furukawa/programming-go-study/ch04/ex11/src/gh"
 )
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
+var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+func RandStringRunes(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	return string(b)
+}
 
 func runEditor() string {
 	editor := os.Getenv("EDITOR")
 	if editor == "" {
 		editor = "vim"
 	}
-	path := os.TempDir() + "/tmp/github" + random.String(10)
+	path := os.TempDir() + "/tmp/github" + RandStringRunes(10)
 
 	cmd := exec.Command(editor, path)
 	cmd.Stdin = os.Stdin
