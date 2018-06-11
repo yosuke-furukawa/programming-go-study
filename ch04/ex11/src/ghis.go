@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"math/rand"
 	"os"
 
 	"fmt"
@@ -12,16 +13,31 @@ import (
 
 	"flag"
 
-	"github.com/orisano/go/pkg/dep/sources/https---github.com-labstack-gommon/random"
+	"time"
+
 	"github.com/yosuke-furukawa/programming-go-study/ch04/ex11/src/gh"
 )
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
+var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+func RandStringRunes(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	return string(b)
+}
 
 func runEditor() string {
 	editor := os.Getenv("EDITOR")
 	if editor == "" {
 		editor = "vim"
 	}
-	path := os.TempDir() + "/tmp/github" + random.String(10)
+	path := os.TempDir() + "/tmp/github" + RandStringRunes(10)
 
 	cmd := exec.Command(editor, path)
 	cmd.Stdin = os.Stdin
@@ -31,12 +47,12 @@ func runEditor() string {
 	err := cmd.Run()
 
 	if err != nil {
-		fmt.Errorf("error %v", err)
+		log.Fatalf("error %v", err)
 		os.Exit(1)
 	}
 	b, err := ioutil.ReadFile(path)
 	if err != nil {
-		fmt.Errorf("error %v", err)
+		log.Fatalf("error %v", err)
 		os.Exit(1)
 	}
 	return string(b)
@@ -56,7 +72,7 @@ Options\n
 	token := os.Getenv("GITHUB_TOKEN")
 
 	if token == "" {
-		fmt.Errorf("no token!!!")
+		log.Fatal("no token!!!")
 		flag.Usage()
 		os.Exit(1)
 	}
@@ -71,7 +87,7 @@ Options\n
 	flag.Parse()
 
 	if *owner == "" || *repository == "" {
-		fmt.Errorf("no owner or repository!!!")
+		log.Fatal("no owner or repository!!!")
 		flag.Usage()
 		os.Exit(1)
 	}
