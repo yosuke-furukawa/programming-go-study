@@ -90,15 +90,16 @@ func download(u string) error {
 	base := path.Base(item.Path)
 	ext := path.Ext(item.Path)
 	downloaddir := "./download/"
-	downloadpath := downloaddir + item.Path
+	downloadpath := path.Join(downloaddir, item.Path)
 
 	if strings.HasSuffix(base, "/") {
-		downloadpath += "index.html"
+		downloadpath = path.Join(downloadpath, "index.html")
 	} else if ext == "" {
-		downloadpath += ".html"
+		downloadpath = path.Join(downloadpath, "index.html")
 	}
+	log.Println(downloadpath)
 
-	err = os.MkdirAll(downloaddir+base, os.ModePerm)
+	err = os.MkdirAll(path.Dir(downloadpath), os.ModePerm)
 	if err != nil {
 		return err
 	}
@@ -118,8 +119,11 @@ func crawl(url string) []string {
 	if !strings.HasPrefix(url, hostname) {
 		return nil
 	}
-	fmt.Println(url)
-	download(url)
+	log.Println(url)
+	err := download(url)
+	if err != nil {
+		log.Print(err)
+	}
 	list, err := extract(url)
 	if err != nil {
 		log.Print(err)
