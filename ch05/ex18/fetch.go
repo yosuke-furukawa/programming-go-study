@@ -26,8 +26,9 @@ func fetch(url string) (filename string, n int64, err error) {
 		return "", 0, err
 	}
 	defer func() {
+		closeErr := f.Close()
 		if err == nil {
-			err = f.Close()
+			err = closeErr
 		}
 	}()
 
