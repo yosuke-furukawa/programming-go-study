@@ -13,7 +13,7 @@ import (
 	"github.com/yosuke-furukawa/programming-go-study/ch04/github"
 )
 
-func issueHandler(tmpl *template.Template) func(w http.ResponseWriter, r *http.Request) {
+func sortHandler(tmpl *template.Template) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if err := r.ParseForm(); err != nil {
 			w.WriteHeader(400)
