@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Database List</title>
+</head>
+<body>
+
+<table>
+    <tr style="'text-align: left'">
+        <th>Title</th>
+        <th>Price</th>
+    </tr>
+{{range $key, $val := .Prices}}
+    <tr>
+        <td>{{$key }}</td>
+        <td>{{$val}}</td>
+    </tr>
+{{ end }}
+</table>
+</body>
+</html>

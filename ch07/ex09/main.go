@@ -70,7 +70,7 @@ func sortHandler(tmpl *template.Template, table *sorting.SortTable) func(w http.
 }
 
 func server(host string, ch chan<- net.Listener, er chan<- error) {
-	table := &sorting.SortTable{tracks, "", ""}
+	table := &sorting.SortTable{T: tracks, FirstKey: "", SecondKey: ""}
 	templ, err := ioutil.ReadFile("./template/sorttable.html")
 	if err != nil {
 		er <- err
