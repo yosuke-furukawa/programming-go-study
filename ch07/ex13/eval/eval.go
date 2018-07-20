@@ -57,7 +57,7 @@ func (u unary) Eval(env Env) float64 {
 }
 
 func (u unary) String() string {
-	return fmt.Sprintf("%s%s", u.op, u.x)
+	return fmt.Sprintf("%c%s", u.op, u.x)
 }
 
 func (b binary) Eval(env Env) float64 {
