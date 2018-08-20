@@ -21,22 +21,24 @@ type urlDepth struct {
 }
 
 func main() {
-	depth := flag.Int("depth", 0, "depth")
-	savePath := *(flag.String("path", "/tmp", "path"))
+	d := flag.Int("depth", 0, "depth")
+	p := flag.String("path", "./files/", "path")
+	u := flag.String("url", "", "url")
+	flag.Parse()
+	depth := *d
+	savePath := *p
 	if !filepath.IsAbs(savePath) {
 		cwd, err := os.Getwd()
 		if err != nil {
 			log.Fatal(err)
 		}
-		savePath = cwd + savePath
+		savePath = cwd + "/" + savePath
 	}
 
-	u := flag.String("url", "", "url")
 	requestUrl, err := url.Parse(*u)
 	if err != nil {
 		log.Fatal(err)
 	}
-	flag.Parse()
 
 	worklist := make(chan []urlDepth)
 	unseenLinks := make(chan urlDepth)
@@ -53,7 +55,8 @@ func main() {
 	for i := 0; i < 20; i++ {
 		go func() {
 			for link := range unseenLinks {
-				foundLinks := crawl(link.url, savePath)
+				parsedUrl, _ := url.Parse(link.url)
+				foundLinks := crawl(link.url, savePath+parsedUrl.Host+"/")
 				go func() {
 					w := []urlDepth{}
 					for _, flink := range foundLinks {
@@ -71,7 +74,7 @@ func main() {
 	seen := make(map[string]bool)
 	for list := range worklist {
 		for _, link := range list {
-			if link.depth >= *depth {
+			if link.depth >= depth {
 				return
 			}
 			parsedUrl, err := url.Parse(link.url)
@@ -95,6 +98,7 @@ func main() {
 func crawl(url, savePath string) []string {
 	fmt.Println(url)
 	fetch.Fetch(url, savePath)
+	fmt.Printf("saved!! %s \n", url)
 	list, err := links.Extract(url)
 	if err != nil {
 		log.Print(err)
