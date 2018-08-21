@@ -34,8 +34,6 @@ func startElement(hostname, saveDir string) func(n *html.Node) {
 					if err != nil {
 						log.Fatal(err)
 					}
-					log.Println("HOSTNAME!! ", u.Hostname())
-					log.Printf("URLl!! %v ", u)
 					if u.Hostname() == "" {
 						a.Val = saveDir + u.Path
 						n.Attr[i].Val = saveDir + u.Path

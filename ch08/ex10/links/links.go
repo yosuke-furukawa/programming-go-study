@@ -7,8 +7,13 @@ import (
 	"golang.org/x/net/html"
 )
 
-func Extract(url string) ([]string, error) {
-	resp, err := http.Get(url)
+func Extract(url string, cancelChan <-chan struct{}) ([]string, error) {
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := http.DefaultClient.Do(req)
+	req.Cancel = cancelChan
 	if err != nil {
 		return nil, err
 	}
@@ -42,9 +47,6 @@ func Extract(url string) ([]string, error) {
 	return links, nil
 }
 
-//!-Extract
-
-// Copied from gopl.io/ch5/outline2.
 func forEachNode(n *html.Node, pre, post func(n *html.Node)) {
 	if pre != nil {
 		pre(n)
