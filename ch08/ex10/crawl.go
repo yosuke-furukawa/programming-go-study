@@ -44,7 +44,7 @@ func main() {
 		go func() {
 			for link := range unseenLinks {
 				foundLinks := crawl(link.url, cancelChan)
-				go func() {
+				go func(link urlDepth) {
 					w := []urlDepth{}
 					for _, flink := range foundLinks {
 						w = append(w, urlDepth{
@@ -57,7 +57,7 @@ func main() {
 						return
 					case worklist <- w:
 					}
-				}()
+				}(link)
 			}
 		}()
 	}

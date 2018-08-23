@@ -34,7 +34,7 @@ func main() {
 		go func() {
 			for link := range unseenLinks {
 				foundLinks := crawl(link.url)
-				go func() {
+				go func(link urlDepth) {
 					w := []urlDepth{}
 					for _, flink := range foundLinks {
 						w = append(w, urlDepth{
@@ -43,7 +43,7 @@ func main() {
 						})
 					}
 					worklist <- w
-				}()
+				}(link)
 			}
 		}()
 	}

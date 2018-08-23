@@ -36,7 +36,6 @@ func handleConn(c net.Conn) {
 			echo(c, input.Text(), 1*time.Second)
 		}
 	}
-	c.Close()
 }
 
 func main() {

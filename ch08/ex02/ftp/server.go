@@ -43,5 +43,4 @@ func FtpHandler(c net.Conn) {
 			conn.conn.Close()
 		}
 	}
-	log.Println("end!!")
 }

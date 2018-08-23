@@ -57,7 +57,7 @@ func main() {
 			for link := range unseenLinks {
 				parsedUrl, _ := url.Parse(link.url)
 				foundLinks := crawl(link.url, savePath+parsedUrl.Host+"/")
-				go func() {
+				go func(link urlDepth) {
 					w := []urlDepth{}
 					for _, flink := range foundLinks {
 						w = append(w, urlDepth{
@@ -66,7 +66,7 @@ func main() {
 						})
 					}
 					worklist <- w
-				}()
+				}(link)
 			}
 		}()
 	}
