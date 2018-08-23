@@ -16,7 +16,7 @@ func main() {
 		panic(err)
 	}
 	dbtmpl := template.Must(template.New("database").Parse(string(tmpl)))
-	db := db.Database{db.Prices{"shoes": 50, "socks": 5}, dbtmpl}
+	db := db.Database{Prices: db.Prices{"shoes": 50, "socks": 5}, Tmpl: dbtmpl}
 	http.HandleFunc("/list", db.List)
 	http.HandleFunc("/update", db.Update)
 	http.HandleFunc("/insert", db.Insert)
