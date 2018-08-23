@@ -71,7 +71,7 @@ loop:
 }
 
 func printDiskUsage(rootDirs map[string]rootDir) {
-	for root, _ := range rootDirs {
+	for root := range rootDirs {
 		fmt.Printf("%s: %d files %1.f Gb\n", root, rootDirs[root].fileNum, float64(rootDirs[root].fileBytes)/1e9)
 	}
 }
