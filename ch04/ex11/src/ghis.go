@@ -92,9 +92,9 @@ Options\n
 		os.Exit(1)
 	}
 	repo := gh.Repository{
-		*owner,
-		*repository,
-		token,
+		Owner: *owner,
+		Repo:  *repository,
+		Token: token,
 	}
 	log.Println(repo)
 
@@ -103,7 +103,7 @@ Options\n
 		if *body == "" {
 			*body = runEditor()
 		}
-		result, err := repo.Create(gh.Issue{*title, *body, ""})
+		result, err := repo.Create(gh.Issue{Title: *title, Body: *body, State: ""})
 		if err != nil {
 			log.Fatal(err)
 			os.Exit(1)
@@ -125,7 +125,7 @@ Options\n
 			*body = runEditor()
 		}
 		log.Println(*body)
-		result, err := repo.Edit(*id, gh.Issue{*title, *body, ""})
+		result, err := repo.Edit(*id, gh.Issue{Title: *title, Body: *body, State: ""})
 		if err != nil {
 			log.Fatal(err)
 			os.Exit(1)
