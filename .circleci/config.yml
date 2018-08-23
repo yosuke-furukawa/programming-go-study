@@ -5,7 +5,7 @@ jobs:
   build:
     docker:
       # specify the version
-      - image: circleci/golang:1.9
+      - image: circleci/golang:1.11
 
     working_directory: /go/src/github.com/yosuke-furukawa/programming-go-study
     steps:
@@ -16,4 +16,4 @@ jobs:
       - run: (! gofmt -s -d . | grep '^')
       - run: golint ./...
       - run: go vet -v ./...
-      - run: go test -race -v ./...
+      - run: go test -race -v ./{ch01,ch02,ch03,ch04,ch05,ch06,ch07}/...
