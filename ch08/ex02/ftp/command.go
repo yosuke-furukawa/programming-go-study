@@ -42,6 +42,8 @@ func ParseCommand(message string, conn *Conn) (Command, error) {
 		return CreateSizeCommand(m[0], m[1], conn)
 	case "RETR":
 		return CreateRETRCommand(m[0], m[1], conn)
+	case "STOR":
+		return CreateSTORCommand(m[0], m[1], conn)
 	case "MDTM":
 		return CreateMDTMCommand(m[0], m[1], conn)
 	case "QUIT":
