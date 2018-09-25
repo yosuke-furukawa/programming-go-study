@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-const timeout = 5 * time.Minute
+const timeout = 5 * time.Second
 
 func main() {
 	listener, err := net.Listen("tcp", "localhost:8000")
