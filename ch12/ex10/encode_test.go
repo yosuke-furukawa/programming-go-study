@@ -1,4 +1,4 @@
-package ex07
+package ex10
 
 import (
 	"bytes"

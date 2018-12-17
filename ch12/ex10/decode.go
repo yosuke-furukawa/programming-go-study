@@ -1,4 +1,4 @@
-package ex07
+package ex10
 
 import (
 	"bytes"
@@ -10,17 +10,8 @@ import (
 )
 
 func Unmarshal(data []byte, out interface{}) (err error) {
-	lex := &lexer{scan: scanner.Scanner{Mode: scanner.GoTokens}}
-	lex.scan.Init(bytes.NewReader(data))
-	lex.next()
-
-	defer func() {
-		if x := recover(); x != nil {
-			err = fmt.Errorf("error at %s: %v", lex.scan.Position, x)
-		}
-	}()
-	read(lex, reflect.ValueOf(out).Elem())
-	return nil
+	decoder := NewDecoder(bytes.NewReader(data))
+	return decoder.Decode(out)
 }
 
 type Decoder struct {
@@ -60,6 +51,9 @@ func (lex *lexer) consume(want rune) {
 	lex.next()
 }
 
+const StartList = '('
+const Symbol = '#'
+
 func read(lex *lexer, v reflect.Value) {
 	switch lex.token {
 	case scanner.Ident:
@@ -82,7 +76,7 @@ func read(lex *lexer, v reflect.Value) {
 		v.SetInt(int64(i))
 		lex.next()
 		return
-	case '(':
+	case StartList:
 		lex.next()
 		readList(lex, v)
 		lex.next() // consume ')'
@@ -101,7 +95,7 @@ func read(lex *lexer, v reflect.Value) {
 		lex.next()
 		return
 
-	case '#':
+	case Symbol:
 		lex.next() // Ident
 		lex.next() // '('
 		lex.next() // Float
